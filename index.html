@@ -9,16 +9,25 @@
 <body>
     <div class="app-container">
     <h1>El Diez Mil De Celi 🎲</h1>
-    <button id="resetGame">Reiniciar partida</button>
 
     <div id="setup">
-        <label>Cantidad de jugadores:</label>
-        <input type="number" id="playerCount" min="1" max="10">
-        <button id="createPlayers">Crear jugadores</button>
-    </div>
+    <label>Cantidad de jugadores:</label>
+    <input type="number" id="playerCount" min="1" max="10">
+    <button id="createPlayers">Comenzar partida</button>
+</div>
 
+<div id="game" style="display: none;">
+    <button id="resetGame">Reiniciar partida</button>
     <div id="playersContainer"></div>
+</div>
+
+<div id="winnerModal" class="modal">
+    <div class="modal-content">
+        <h2 id="winnerText"></h2>
+        <button id="closeModal">Cerrar</button>
     </div>
-    <script src="script.js"></script>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>

@@ -47,7 +47,7 @@ function createPlayerCard(index) {
     addButton.addEventListener("click", () => {
         const points = Number(scoreInput.value);
 
-        if (!points) return;
+        if (isNaN(points) || points <= 0) return;
 
         player.score += points;
         player.history.push(points);

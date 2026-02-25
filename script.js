@@ -2,6 +2,14 @@ let players = [];
 
 const createButton = document.getElementById("createPlayers");
 const container = document.getElementById("playersContainer");
+const resetButton = document.getElementById("resetGame");
+
+resetButton.addEventListener("click", () => {
+    if (!confirm("¿Seguro que quieres reiniciar la partida?")) return;
+
+    players = [];
+    container.innerHTML = "";
+});
 
 createButton.addEventListener("click", () => {
     const count = document.getElementById("playerCount").value;
@@ -47,7 +55,14 @@ function createPlayerCard(index) {
     addButton.addEventListener("click", () => {
         const points = Number(scoreInput.value);
 
-        if (isNaN(points) || points <= 0) return;
+        if (
+    isNaN(points) ||
+    points <= 0 ||
+    points % 50 !== 0
+) {
+    alert("Solo se permiten múltiplos de 50 (50, 100, 150...)");
+    return;
+}
 
         player.score += points;
         player.history.push(points);

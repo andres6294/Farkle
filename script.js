@@ -3,22 +3,41 @@ let players = [];
 const createButton = document.getElementById("createPlayers");
 const container = document.getElementById("playersContainer");
 const resetButton = document.getElementById("resetGame");
+const setupDiv = document.getElementById("setup");
+const gameDiv = document.getElementById("game");
+const winnerModal = document.getElementById("winnerModal");
+const winnerText = document.getElementById("winnerText");
+const closeModal = document.getElementById("closeModal");
 
 resetButton.addEventListener("click", () => {
-    if (!confirm("¿Seguro que quieres reiniciar la partida?")) return;
+    if (!confirm("¿Seguro que quieres reiniciar los puntajes?")) return;
 
-    players = [];
-    container.innerHTML = "";
+    players.forEach((player, index) => {
+        player.score = 0;
+        player.history = [];
+
+        // actualizar el total visual en pantalla
+        const card = container.children[index];
+        const totalDisplay = card.querySelector("h3");
+        totalDisplay.textContent = "Total: 0";
+    });
 });
 
 createButton.addEventListener("click", () => {
     const count = document.getElementById("playerCount").value;
+
+    if (!count || count <= 0) return;
+
     container.innerHTML = "";
     players = [];
 
     for (let i = 0; i < count; i++) {
         createPlayerCard(i);
     }
+
+    // 🔥 cambiar vista
+    setupDiv.style.display = "none";
+    gameDiv.style.display = "block";
 });
 
 function createPlayerCard(index) {
@@ -71,7 +90,8 @@ function createPlayerCard(index) {
         scoreInput.value = "";
 
         if (player.score >= 10000) {
-            alert(`🎉 ${player.name || "Jugador"} ganó la partida!`);
+            winnerText.textContent = `🎉 ${player.name || "Jugador"} ganó la partida!`;
+winnerModal.style.display = "flex";
         }
     });
 
@@ -86,3 +106,7 @@ function createPlayerCard(index) {
 
     container.appendChild(card);
 }
+
+closeModal.addEventListener("click", () => {
+    winnerModal.style.display = "none";
+});

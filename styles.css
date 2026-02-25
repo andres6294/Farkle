@@ -48,3 +48,37 @@ button:active {
     max-width: 600px;
     margin: auto;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    animation: pop 0.3s ease;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

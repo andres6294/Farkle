@@ -17,7 +17,8 @@ function createPlayerCard(index) {
 
     const player = {
         name: "",
-        score: 0
+        score: 0,
+        history: []
     };
 
     players.push(player);
@@ -27,31 +28,45 @@ function createPlayerCard(index) {
 
     card.innerHTML = `
         <input type="text" placeholder="Nombre jugador">
-        <br>
         <input type="number" placeholder="Puntos de la ronda">
-        <button>Sumar</button>
+        <button class="add">Sumar</button>
+        <button class="undo">Deshacer</button>
         <h3>Total: 0</h3>
     `;
 
     const nameInput = card.querySelector("input[type='text']");
     const scoreInput = card.querySelector("input[type='number']");
-    const button = card.querySelector("button");
-    const totalDisplay = card.querySelector("h3");
+    const addButton = card.querySelector(".add");
+    const undoButton = card.querySelector(".undo");
+    const totalDisplay = card.querySelector("h3"); // 👈 FALTABA ESTO
 
     nameInput.addEventListener("input", () => {
         player.name = nameInput.value;
     });
 
-    button.addEventListener("click", () => {
+    addButton.addEventListener("click", () => {
         const points = Number(scoreInput.value);
+
+        if (!points) return;
+
         player.score += points;
+        player.history.push(points);
 
         totalDisplay.textContent = `Total: ${player.score}`;
         scoreInput.value = "";
 
         if (player.score >= 10000) {
-            alert(`🎉 ${player.name} ganó la partida!`);
+            alert(`🎉 ${player.name || "Jugador"} ganó la partida!`);
         }
+    });
+
+    undoButton.addEventListener("click", () => {
+        if (player.history.length === 0) return;
+
+        const lastPoints = player.history.pop();
+        player.score -= lastPoints;
+
+        totalDisplay.textContent = `Total: ${player.score}`;
     });
 
     container.appendChild(card);
